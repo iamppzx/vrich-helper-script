@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         [WORKED]enter to save vrich
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.2
 // @description  try to take over the world!
-// @author       You
-// @match        https://mamymui.vrich619.com/sale
+// @author       ppzx
+// @match        https://*.vrich619.com/sale
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=vrich619.com
 // @grant        none
 // ==/UserScript==
@@ -20,13 +20,22 @@
         }
     }
 
-    // Attach event listener to Enter key
+    // Function to trigger the Delete button click
+    function triggerDeleteButtonClick() {
+        const deleteButton = document.getElementById('del-product');
+        if (deleteButton) {
+            deleteButton.click();
+        }
+    }
+
+    // Attach event listener to keyboard keys
     document.addEventListener('keydown', function(event) {
-        // Check if the Enter key is pressed
-        if (event.key === 'Enter') {
-            const modal = document.getElementById('modal-edit-product');
-            if (modal && modal.style.display === 'block') {
+        const modal = document.getElementById('modal-edit-product');
+        if (modal && modal.style.display === 'block') {
+            if (event.key === 'Enter') {
                 triggerSaveButtonClick();
+            } else if (event.key === 'Delete') {
+                triggerDeleteButtonClick();
             }
         }
     });
